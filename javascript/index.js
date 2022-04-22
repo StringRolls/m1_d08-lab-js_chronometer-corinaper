@@ -16,14 +16,10 @@ const splitsElement = document.getElementById('splits');
 
 
 function printTime() {
-  setInterval(()=>
-  minDecElement.innerText = chronometer.split()[0],1000)
-  setInterval(()=>
-  minUniElement.innerText = chronometer.split()[1],1000)
-  setInterval(()=>
-  secDecElement.innerText = chronometer.split()[3],1000)
-  setInterval(()=>
-  secUniElement.innerText = chronometer.split()[4],1000)
+  minDecElement.innerText = chronometer.getMinutes()[0]
+  minUniElement.innerText = chronometer.getMinutes()[1]
+  secDecElement.innerText = chronometer.getSeconds()[0]
+  secUniElement.innerText = chronometer.getSeconds()[1]
 }
 
 // function printMinutes() {
@@ -82,12 +78,10 @@ btnLeftElement.addEventListener('click', () => {
   if (btnLeftElement.classList.contains("stop")){
     btnLeftElement.innerText = "STOP"
     btnRightElement.innerText = "SPLIT"
-    chronometer.start()
-    printTime()
+    chronometer.start(printTime)
   } else if (btnLeftElement.classList.contains("start")){
     btnLeftElement.innerText = "START"
     btnRightElement.innerText = "RESET"
-    
     chronometer.stop() 
   }
 });
@@ -97,7 +91,7 @@ btnRightElement.addEventListener('click', () => {
   if (btnRightElement.classList.contains("split"))
   {printSplit()}
   else if (btnRightElement.classList.contains("reset")){
-    chronometer.reset()
+    chronometer.reset(printTime)
     while(splitsElement.firstChild){
       splitsElement.removeChild(splitsElement.lastChild)
     }
